@@ -1,0 +1,53 @@
+@extends('layout')
+@section('content')
+
+                <div class="container mt-5">
+                    <h3>Categories</h3>
+                    <div class="row">
+                        @if(!empty($categories))
+                            @foreach ($categories as $key => $category)
+                            @if($key < 6)
+                            <div class="col-2">
+                                      <div class="card bg-success text-center text-white">
+                                        <div class="card-body">
+                                          <h5 class="card-title">{{ $category->category_name }}</h5>
+                                        </div>
+                                      </div>
+                            </div>
+                            @endif
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
+
+
+                
+                <div class="container mt-5">
+                  @if(session('success'))
+        <div class="alert alert-success">
+          {{ session('success') }}
+        </div> 
+    @endif
+                    <div class="row text-center mb-5">
+                        <div class="col-12">
+                            <h3 class="text-center"> All Products</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @if(!empty($products))
+                            @foreach ($products as $product)
+                            <div class="col-3">
+                                <div class="card">
+                                    <img class="card-img-top" style="width: 100%; height: 250px;" src="{{ asset($product->image_1) }}" alt="Card image cap">
+                                    <div class="card-body">
+                                      <h5 class="card-title">{{ $product->item_name }}</h5>
+                                      <p class="card-text">{{ $product->category->category_name }}</p>
+                                      <a href="{{ url('customer/add-to-cart/'.$product->id) }}" class="btn btn-primary">Add To Cart</a>
+                                    </div>
+                                  </div>
+                            </div>
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
+@endsection
